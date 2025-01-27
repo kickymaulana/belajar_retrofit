@@ -8,6 +8,7 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
+
 val appModule = module {
     single {
         Room.databaseBuilder(
@@ -18,7 +19,11 @@ val appModule = module {
     }
 
     // UserDao
-    single { get<MyDatabase>().userDao() }
+    single<UserDao> {
+        val database = get<MyDatabase>()
+        database.userDao()
+
+    }
 
     // UserListRepository
     singleOf(::UserListRepositoryImpl) { bind<UserListRepository>()}
