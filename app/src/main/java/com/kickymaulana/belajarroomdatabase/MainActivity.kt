@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kickymaulana.belajarroomdatabase.ui.theme.BelajarRoomDatabaseTheme
-import com.kickymaulana.belajarroomdatabase.userlist.UserListScreen
+import com.kickymaulana.belajarroomdatabase.userlist.PegawaiListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BelajarRoomDatabaseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    UserListScreen(modifier = Modifier.padding(innerPadding))
-
-                }
+                AppNavigation()
             }
         }
     }

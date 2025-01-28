@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,17 +20,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun UserListScreen(modifier: Modifier, viewModel: PegawaiListViewModel = koinViewModel()){
+fun PegawaiListScreen(navController: NavController, viewModel: PegawaiListViewModel = koinViewModel()) {
 
     val list_pegawai by viewModel.users.collectAsStateWithLifecycle()
 
-    Scaffold { scaffoldPadding ->
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .padding(scaffoldPadding)) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate("create")
+                },
+            ) {
+                Icon(Icons.Filled.Add, "Floating action button.")
+            }
+
+        }
+
+    ) { scaffoldPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(scaffoldPadding)
+        ) {
 
             items(list_pegawai) { pegawai ->
                 Card(modifier = Modifier.fillParentMaxWidth()) {
@@ -37,6 +57,15 @@ fun UserListScreen(modifier: Modifier, viewModel: PegawaiListViewModel = koinVie
                 }
                 Spacer(Modifier.height(6.dp))
             }
+//            items(10) {
+//                Card(modifier = Modifier.fillParentMaxWidth()) {
+//                    Column(modifier = Modifier.padding(6.dp)) {
+//                        Text(text = "Nama : Kicky Maulaana")
+//                        Text(text = "Alamat : Sei Balai")
+//                    }
+//                }
+//                Spacer(Modifier.height(6.dp))
+//            }
 
         }
 
@@ -53,5 +82,5 @@ fun TestingScreen() {
 @Preview(showBackground = true)
 @Composable
 fun UserListScreenPreview() {
-    //UserListScreen()
+    //PegawaiListScreen()
 }
