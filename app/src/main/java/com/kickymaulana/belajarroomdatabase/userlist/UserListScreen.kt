@@ -11,14 +11,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun UserListScreen(modifier: Modifier, viewModel: UserListViewModel = koinViewModel()){
+fun UserListScreen(modifier: Modifier, viewModel: PegawaiListViewModel = koinViewModel()){
 
-    val users by viewModel.users.collectAsStateWithLifecycle()
+    val list_pegawai by viewModel.users.collectAsStateWithLifecycle()
 
     LazyColumn {
-        items(users){ user ->
-            Text(text = "Firstname : ${user.firstName}")
-            Text(text = "Lastname : ${user.lastName}")
+        items(list_pegawai){ pegawai ->
+            Text(text = "Nama : ${pegawai.nama}")
+            Text(text = "Alamat : ${pegawai.alamat}")
         }
 
     }

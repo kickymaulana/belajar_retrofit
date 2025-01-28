@@ -1,7 +1,7 @@
 package com.kickymaulana.belajarroomdatabase
 
-import com.kickymaulana.belajarroomdatabase.userlist.UserListRepository
-import com.kickymaulana.belajarroomdatabase.userlist.UserListViewModel
+import com.kickymaulana.belajarroomdatabase.userlist.PegawaiListRepository
+import com.kickymaulana.belajarroomdatabase.userlist.PegawaiListViewModel
 import okhttp3.OkHttpClient
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -13,15 +13,15 @@ val appModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/") // Replace with your base URL
+            .baseUrl("https://678624ccf80b78923aa594f2.mockapi.io/api/v1/") // Replace with your base URL
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient.Builder().build())
             .build()
 
-        retrofit.create(UserService::class.java)
+        retrofit.create(PegawaiService::class.java)
     }
 
-    single { UserListRepository(get()) }
+    single { PegawaiListRepository(get()) }
 
-    viewModel { UserListViewModel(get()) }
+    viewModel { PegawaiListViewModel(get()) }
 }

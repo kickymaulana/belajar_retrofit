@@ -2,16 +2,16 @@ package com.kickymaulana.belajarroomdatabase.userlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kickymaulana.belajarroomdatabase.User
+import com.kickymaulana.belajarroomdatabase.Pegawai
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class UserListViewModel(private val userListRepository: UserListRepository) : ViewModel() {
+class PegawaiListViewModel(private val pegawaiListRepository: PegawaiListRepository) : ViewModel() {
 
-    private val _users: MutableStateFlow<List<User>> = MutableStateFlow(emptyList())
-    val users: StateFlow<List<User>> get() = _users
+    private val _users: MutableStateFlow<List<Pegawai>> = MutableStateFlow(emptyList())
+    val users: StateFlow<List<Pegawai>> get() = _users
 
     init {
         initialLoad()
@@ -20,7 +20,7 @@ class UserListViewModel(private val userListRepository: UserListRepository) : Vi
     fun initialLoad(){
         viewModelScope.launch {
 
-            val newUser = userListRepository.getUsers()
+            val newUser = pegawaiListRepository.getUsers()
             _users.update { newUser }
         }
 
