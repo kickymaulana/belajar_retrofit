@@ -20,18 +20,6 @@ class UserListViewModel(private val userListRepository: UserListRepository) : Vi
     fun initialLoad(){
         viewModelScope.launch {
 
-            val userOne = User(
-                firstName = "Kicky",
-                lastName = "Maulana"
-            )
-            val userTwo = User(
-                firstName = "Iriawan",
-                lastName = "Panjaitan"
-            )
-
-            userListRepository.createUser(userOne)
-            userListRepository.createUser(userTwo)
-
             val newUser = userListRepository.getUsers()
             _users.update { newUser }
         }

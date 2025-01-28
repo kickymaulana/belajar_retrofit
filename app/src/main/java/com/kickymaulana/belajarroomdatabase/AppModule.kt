@@ -1,33 +1,27 @@
 package com.kickymaulana.belajarroomdatabase
 
-import androidx.room.Room
 import com.kickymaulana.belajarroomdatabase.userlist.UserListRepository
 import com.kickymaulana.belajarroomdatabase.userlist.UserListViewModel
-import org.koin.android.ext.koin.androidApplication
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
+import okhttp3.OkHttpClient
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 val appModule = module {
+
     single {
-        Room.databaseBuilder(
-            androidApplication(),
-            MyDatabase::class.java,
-            "user_database"
-        ).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/") // Replace with your base URL
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder().build())
+            .build()
+
+        retrofit.create(UserService::class.java)
     }
 
-    // UserDao
-    single<UserDao> {
-        val database = get<MyDatabase>()
-        database.userDao()
+    single { UserListRepository(get()) }
 
-    }
-
-    // UserListRepository
-    singleOf(::UserListRepositoryImpl) { bind<UserListRepository>()}
-
-    // UserListViewModel
-    singleOf(::UserListViewModel)
+    viewModel { UserListViewModel(get()) }
 }
