@@ -1,7 +1,9 @@
 package com.kickymaulana.belajarroomdatabase.userlist
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,10 +17,13 @@ fun UserListScreen(modifier: Modifier, viewModel: PegawaiListViewModel = koinVie
 
     val list_pegawai by viewModel.users.collectAsStateWithLifecycle()
 
-    LazyColumn {
-        items(list_pegawai){ pegawai ->
-            Text(text = "Nama : ${pegawai.nama}")
-            Text(text = "Alamat : ${pegawai.alamat}")
+    Scaffold{ scaffoldPadding ->
+        LazyColumn(modifier = Modifier.padding(scaffoldPadding)) {
+            items(list_pegawai){ pegawai ->
+                Text(text = "Nama : ${pegawai.nama}")
+                Text(text = "Alamat : ${pegawai.alamat}")
+            }
+
         }
 
     }
